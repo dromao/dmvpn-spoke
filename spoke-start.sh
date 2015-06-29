@@ -2,6 +2,8 @@
 # Deployment script
 # Tested with Tails 1.4
 
+export DEBIAN_FRONTEND=noninteractive
+
 # Configure serial interface
 stty -F /dev/ttyUSB0 19200 clocal cs8 -cstopb -parenb
 
@@ -34,7 +36,7 @@ modprobe ip_gre
 
 # Create GRE interface
 ip tunnel add gre1 mode gre key 1234 ttl 64
-ip addr add 10.255.255.10/24 dev gre1
+ip addr add TUNNEL_SPOKE_IP/TUNNEL_NETMASK dev gre1
 ip link set gre1 up
 
 # Restart services

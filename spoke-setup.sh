@@ -28,6 +28,7 @@ echo -e "\nInsert IP address of the hub tunnel interface (ex. 10.255.255.1): \c"
 read TUNNEL_HUB_IP
 
 sed -i "s/TUNNEL_HUB_IP/$TUNNEL_HUB_IP/g" files/configuration/opennhrp.conf
+sed -i "s/TUNNEL_HUB_IP/$TUNNEL_HUB_IP/g" files/configuration/ferm.conf
 
 echo -e "\nInsert IP address of the server/router that is the DMVPN hub: \c"
 read HUB_IP
@@ -60,8 +61,9 @@ openssl genrsa -des3 -out key_encrypted.key 4096
 openssl rsa -in key_encrypted.key -out key.pem
 openssl req -new -key key.pem -out cert.csr
 
-mv key.pem files/certs/
-mv cert.csr files/certs
+mkdir -p files/certs
+mv key.pem files/certs/key.pem
+mv cert.csr files/certs/cert.csr
 rm key_encrypted.key
 
 echo -e "\nEnd of configuration!\n"
