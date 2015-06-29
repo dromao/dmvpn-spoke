@@ -33,6 +33,7 @@ echo -e "\nInsert IP address of the server/router that is the DMVPN hub: \c"
 read HUB_IP
 
 sed -i "s/HUB_IP/$HUB_IP/g" files/configuration/opennhrp.conf
+sed -i "s/HUB_IP/$HUB_IP/g" files/configuration/ferm.conf
 
 # Configure Spoke
 echo -e "\nInsert IP address for this spoke tunnel interface (ex. 10.255.255.10): \c"
